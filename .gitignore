@@ -56,3 +56,4 @@ docs/_build/
 ssh_config
 *.dll
 .idea
+.vagrant/

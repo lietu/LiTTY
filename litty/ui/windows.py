@@ -1,15 +1,15 @@
 import paramiko
 import terminal
 import tempfile
+import time
 from PySide import QtCore, QtGui
-from PySide.QtGui import QMainWindow, QErrorMessage
 from .settings import Ui_SettingsWindow
 from ..utils import log
 from ..exceptions import NotEnoughInformationError
 from ..config import SessionConfig
 
 
-class SettingsWindow(QMainWindow, Ui_SettingsWindow):
+class SettingsWindow(QtGui.QMainWindow, Ui_SettingsWindow):
     # Elements from Qt Designer layout
     centralwidget = None
     connection_connect_button = None
@@ -57,7 +57,7 @@ class SettingsWindow(QMainWindow, Ui_SettingsWindow):
         self._setup_event_listeners()
 
     def _setup_error_message(self):
-        self.error_message = QErrorMessage(self)
+        self.error_message = QtGui.QErrorMessage(self)
 
     def _setup_event_listeners(self):
         self.connection_connect_button.clicked.connect(
@@ -132,28 +132,27 @@ class TerminalTab(QtGui.QWidget):
             'bash'
         )
 
-        self.term = terminal.Terminal(24, 80, temppath=tempfile.gettempdir())
+        self.term = terminal.Terminal(40, 150, temppath=tempfile.gettempdir())
 
         self.timer = QtCore.QTimer(self)
         self.connect(self.timer, QtCore.SIGNAL("timeout()"), self.update)
         self.timer.start(5)
 
     def update(self):
-        ok = "is" if self.stdout.channel.in_buffer.read_ready() else "is not"
-        log.debug("Update: Connection stdout " + ok + " ready for reading")
 
         if self.stdout.channel.in_buffer.read_ready():
-            out = self.stdout.read(1)
+            out = self.stdout.readline()
             self.term.write(out)
         else:
+            time.sleep(3)  # Remove if freezing UI annoys you
             self.term.write("\n")
-            self.stdin.write("uptime\n")
+            self.stdin.write("top -bn1\n")
 
         screen = "\n".join(self.term.dump())
         self.edit.setPlainText(screen)
 
 
-class TerminalWindow(QMainWindow):
+class TerminalWindow(QtGui.QMainWindow):
     name = "LiTTY"
     size = (980, 760)
     tabs = []

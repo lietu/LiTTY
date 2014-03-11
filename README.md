@@ -51,6 +51,8 @@ http://qt-project.org/
 1. You will need PySide installed, get it too from the Qt homepage at
 http://qt-project.org/wiki/PySide
    * Windows: http://qt-project.org/wiki/PySide_Binaries_Windows
+1. At least Windows users will probably want to download PyCrypto as a binary
+  from http://www.voidspace.org.uk/python/weblog/arch_d7_2010_07_03.shtml
 1. Some sort of a Python-aware IDE/editor is generally nice to have, PyCharm and
  Sublime Text are both good for the job
 1. Install the rest of the required python packages ```pip install --user -r
@@ -134,6 +136,11 @@ this can be changed in litty/ui/windows.py .
 
 At this moment there is NO shell for you to write stuff in.
 
+### Troubleshooting
+
+#### ValueError: Procedure probably called with too many arguments (12 bytes in excess)
+
+If you get this error, try and close Pageant or other SSH agents. Dunno why it breaks, don't have time to investigate yet.
 
 ### Python 2, 3 or both?
 
