@@ -149,3 +149,9 @@ Paramiko (an SSH library) and I'm getting an error from it in Python 3. Could be
 that it's just me, could be that it's been since fixed, I haven't really looked
 into it that much yet.
 
+
+# Financial support
+
+This project has been made possible thanks to [Cocreators](https://cocreators.ee) and [Lietu](https://lietu.net). You can help us continue our open source work by supporting us on [Buy me a coffee](https://www.buymeacoffee.com/cocreators).
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/cocreators)
